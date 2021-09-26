@@ -1,0 +1,4 @@
+streamlit==0.79.0
+pandas @ file:///C:/ci/pandas_1618365634936/work
+matplotlib @ file:///C:/ci/matplotlib-suite_1613408055530/work
+japanize-matplotlib==1.1.3
