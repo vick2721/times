@@ -102,20 +102,20 @@ if password == '00268':
         #st.dataframe(df2_weekday.head(100))
 
         df2_weekday = df2_weekday.groupby('時間帯1').mean().reset_index()
-        df2_weekday.drop(0,inplace=True)
+        #df2_weekday.drop(0,inplace=True)
         x = df2_weekday['時間帯1']
         y = df2_weekday['客数']
         
 
         df_holiday = df4[(df4['曜日'] == 'Sunday') | (df4['曜日'] == 'Saturday')]
         df_holiday = df_holiday.groupby('時間帯1').mean().reset_index()
-        df_holiday.drop(0,inplace=True)
+        #df_holiday.drop(0,inplace=True)
         x1 = df_holiday['時間帯1']
         y1 = df_holiday['客数']
 
         df_tenweekday = df3[(df3['曜日'] != 'Sunday') & (df3['曜日'] != 'Saturday')]
         df_tenweekday = df_tenweekday.groupby('時間帯1').mean().reset_index()
-        df_tenweekday.drop(0,inplace=True)
+        #df_tenweekday.drop(0,inplace=True)
         x2 = df_tenweekday['時間帯1']
         y2 = df_tenweekday['客数']
 
