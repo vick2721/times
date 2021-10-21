@@ -5,7 +5,6 @@ import os
 import matplotlib.pyplot as plt
 import japanize_matplotlib
 import xlrd
-import openpyxl
 import seaborn as sns
 import requests
 from PIL import Image
