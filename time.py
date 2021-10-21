@@ -331,6 +331,100 @@ if password == '00268':
                 plt.ylabel(option2)
                 plt.legend(loc = 'upper right')
                 plt.show()
+            if st.checkbox('期間を指定'):
+
+            col3 = st.sidebar
+            data4 = df['month'].unique()
+            data4 = np.sort(data4)
+
+            df_month1 = df2_1.set_index('month')
+            option3 = col3.selectbox("開始月",data4)
+
+            df_month2 = df2_1.set_index('month')
+            option4 = col3.selectbox("結束月",data4)
+
+            df5 = df2_1[(df2_1['month'] >= option3) & (df2_1['month'] <= option4)]
+
+
+            #st.dataframe(df5.head(100))
+
+            df_Monday = df5[df5['曜日'] == 'Monday']
+            df_Tuesday = df5[df5['曜日'] == 'Tuesday']
+            df_Wednesday = df5[df5['曜日'] == 'Wednesday']
+            df_Thursday = df5[df5['曜日'] == 'Thursday']
+            df_Friday = df5[df5['曜日'] == 'Friday']
+            df_Saturday = df5[df5['曜日'] == 'Saturday']
+            df_Sunday = df5[df5['曜日'] == 'Sunday']
+
+            df_Monday = df_Monday.groupby('時間帯1').mean().reset_index()
+            df_Tuesday = df_Tuesday.groupby('時間帯1').mean().reset_index()
+            df_Wednesday = df_Wednesday.groupby('時間帯1').mean().reset_index()
+            df_Thursday = df_Thursday.groupby('時間帯1').mean().reset_index()
+            df_Friday = df_Friday.groupby('時間帯1').mean().reset_index()
+            df_Saturday = df_Saturday.groupby('時間帯1').mean().reset_index()
+            df_Sunday = df_Sunday.groupby('時間帯1').mean().reset_index()
+
+
+            d1 = df_month[df_month['day'] == 1]
+            d2 = df_month[df_month['day'] == 10]
+            d3 = df_month[df_month['day'] == 20]
+            d4 = df_month[df_month['day'] == 30]
+            df6 = pd.concat([d1, d2, d3 , d4],ignore_index=True)
+
+            d5 = df_month[df_month['day'] != 1]
+            d6 = df_month[df_month['day'] != 10]
+            d7 = df_month[df_month['day'] != 20]
+            d8 = df_month[df_month['day'] != 30]
+            df7 = d8
+
+
+
+            df2_weekday1 = df7[(df7['曜日'] != 'Sunday') & (df7['曜日'] != 'Saturday')]
+            #st.dataframe(df2_weekday.head(100))
+
+            df2_weekday1 = df2_weekday1.groupby('時間帯1').mean().reset_index()
+            df2_weekday1.drop(0,inplace=True)
+            x = df2_weekday1['時間帯1']
+            y = df2_weekday1['客数']
+            
+
+            df_holiday = df4[(df4['曜日'] == 'Sunday') | (df4['曜日'] == 'Saturday')]
+            df_holiday = df_holiday.groupby('時間帯1').mean().reset_index()
+            df_holiday.drop(0,inplace=True)
+            x1 = df_holiday['時間帯1']
+            y1 = df_holiday['客数']
+
+            df_tenweekday = df3[(df3['曜日'] != 'Sunday') & (df3['曜日'] != 'Saturday')]
+            df_tenweekday = df_tenweekday.groupby('時間帯1').mean().reset_index()
+            df_tenweekday.drop(0,inplace=True)
+            x2 = df_tenweekday['時間帯1']
+            y2 = df_tenweekday['客数']
+
+            df_tenday_holiday = df3[(df3['曜日'] == 'Sunday') | (df3['曜日'] == 'Saturday')]
+            #df_tenday_holiday2 = df_tenday_holiday.gro
+            df_tenday_holiday1 = df_tenday_holiday.groupby('時間帯1').mean().reset_index()
+            x3 = df_tenday_holiday1['時間帯1']
+            y3 = df_tenday_holiday1['客数']
+
+
+            def small3(option3):
+                plt.figure(figsize=(12,6))
+                
+                ax = plt.subplot()
+
+                plt.style.use('fivethirtyeight')
+
+                ax.plot(df_Monday['時間帯1'],df_Monday[option2],linewidth=1.0,marker="o",color='coral',label='月曜日')
+                ax.plot(df_Tuesday['時間帯1'],df_Tuesday[option2],linewidth=1.0,marker="o",color='b',label='火曜日')
+                ax.plot(df_Wednesday['時間帯1'],df_Wednesday[option2],linewidth=1.0,marker="o",color='r',label='水曜日')
+                ax.plot(df_Thursday['時間帯1'],df_Thursday[option2],linewidth=1.0,marker="o",color='y',label='木曜日')
+                ax.plot(df_Friday['時間帯1'],df_Friday[option2],linewidth=1.0,marker="o",color='m',label='金曜日')
+                ax.plot(df_Saturday['時間帯1'],df_Saturday[option2],linewidth=1.0,marker="o",color='c',label='土曜日')
+                ax.plot(df_Sunday['時間帯1'],df_Sunday[option2],linewidth=1.0,marker="o",color='k',label='日曜日')
+                plt.xlabel('時間帯')
+                plt.ylabel(option2)
+                plt.legend(loc = 'upper right')
+                plt.show()
 
 
             st.markdown('月の時間帯分析:')
